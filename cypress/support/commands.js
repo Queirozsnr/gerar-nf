@@ -1,4 +1,4 @@
-Cypress.Commands.add('gerarNF', (cnpj, senha, servico, valor) => {
+Cypress.Commands.add('gerarNF', (cnpj, senha, servico, cnpjEmpresa, valor) => {
     cy.get('input[placeholder="CPF/CNPJ"]').type(cnpj);
     cy.get('input[placeholder="Senha"]').type(senha);
 
@@ -20,7 +20,7 @@ Cypress.Commands.add('gerarNF', (cnpj, senha, servico, valor) => {
     cy.get('input[name="DataCompetencia"]').type(dataFormatada);
     cy.get('[class="passos-servico"]').click();
     cy.contains('label', 'Brasil', {timeout: 3000}).click();
-    cy.get('input[id="Tomador_Inscricao"]').type('26.832.621/0001-25');
+    cy.get('input[id="Tomador_Inscricao"]').type(cnpjEmpresa);
     cy.get('[class="passos-servico"]').click();
     cy.get('#btnAvancar', {timeout: 1000}).click();
 
@@ -29,7 +29,7 @@ Cypress.Commands.add('gerarNF', (cnpj, senha, servico, valor) => {
     cy.get('input[class="select2-search__field"]').type('manaus');
     cy.get('li[class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]', {timeout: 3000}).click();
     cy.get('span[aria-controls="select2-ServicoPrestado_CodigoTributacaoNacional-container"]').eq(0).click();
-    cy.get('input[class="select2-search__field"]').type('100401');
+    cy.get('input[class="select2-search__field"]').type('computador');
     cy.get('li[class="select2-results__option select2-results__option--selectable select2-results__option--highlighted"]', {timeout: 3000}).click();
     cy.contains('label', 'Não', {timeout: 3000}).click();
     cy.get('textarea[name="ServicoPrestado.Descricao"]').type(servico);
